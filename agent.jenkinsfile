@@ -1,0 +1,21 @@
+pipeline {
+    agent {
+        label 'my-agent'
+    }
+    
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building on the specified agent...'
+                // Add your build steps here
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                echo 'Running tests on the specified agent...'
+                // Add your test steps here
+            }
+        }
+    }
+}
