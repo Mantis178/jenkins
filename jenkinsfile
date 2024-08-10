@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Print Hello') {
+            steps {
+                echo 'Hello, World!'
+            }
+        }
+        
+        stage('Create File') {
+            steps {
+                sh 'echo "This is a sample file" > sample.txt'
+                echo 'File created: sample.txt'
+            }
+        }
+    }
+}
