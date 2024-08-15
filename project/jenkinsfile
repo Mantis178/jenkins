@@ -11,6 +11,7 @@ pipeline {
         stage('Build Docker Image') {
             steps{
                 sh'''
+                cd project
                 docker build -t doramar97/myapp .
                 '''
             }
