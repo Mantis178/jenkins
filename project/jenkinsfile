@@ -5,7 +5,7 @@ pipeline {
     }
     stages {
         stage('Checkout code') {
-            step {
+            steps {
                 git branch: 'main', url: 'https://github.com/dor-amar/jenkins'
             }
         }
