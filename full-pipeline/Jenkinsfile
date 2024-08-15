@@ -22,7 +22,6 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'DOCKERHUB_PASSWORD', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
                     sh '''
-                       cd full-pipeline
                        echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
                     '''
                 }
@@ -38,7 +37,8 @@ pipeline {
         stage('Deploy with Ansible') {
             steps {
                 sh '''
-                   ansible-playbook -i inventory/hosts deploy-playbook.yml --extra-vars "version=$IMAGE_TAG"
+                   cd full-pipeline
+                   ansible-playbook -i inventory.ini deploy-playbook.yml --extra-vars "version=$IMAGE_TAG"
                 '''
             }
         }
