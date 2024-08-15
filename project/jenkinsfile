@@ -25,6 +25,15 @@ pipeline {
                 }
             }
         }
+        stage('Push') {
+                    sh '''
+                       docker push doramar97/myapp:latest
+                    '''
+        }
+
+        
+ 
+
     }
 
 }
