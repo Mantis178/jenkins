@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        label 'worker'
-    }
+    agent any
     environment {
         DOCKERHUB_USERNAME = 'doramar97'
         DOCKERHUB_REPO = 'example-application'
