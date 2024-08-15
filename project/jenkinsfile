@@ -30,8 +30,16 @@ pipeline {
                     sh '''
                        docker push doramar97/myapp:latest
                     '''
-         }
+          }
         }
+        stage('Deploy'){
+            steps{
+                    sh '''
+                    ansible-playbook -i inventory.ini deploy-playbook.yml
+                    '''
+            }
+        }
+
         
  
 

@@ -1,0 +1,23 @@
+---
+- hosts: web
+  become: yes
+  tasks:
+    - name: Pull Docker Image
+      command: docker pull doramar97/myapp:latest
+
+    - name: Stop existing container if running
+      shell: |
+        if [ $(docker ps -q -f name=app) ]; then
+          docker stop app;
+        fi
+      ignore_errors: yes
+      
+    - name: Remove existing container if exists
+      shell: |
+        if [ $(docker ps -a -q -f name=app) ]; then
+          docker rm app;
+        fi
+      ignore_errors: yes
+
+    - name: Run new container
+      command: docker run -d --name app -p 80:80 doramar97/myapp:latest
