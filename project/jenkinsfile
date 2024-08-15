@@ -1,0 +1,14 @@
+pipeline {
+    agent any
+    environment {
+
+    }
+    stages {
+        stage('Checkout code') {
+            step {
+                git branch: 'main', url: 'https://github.com/dor-amar/jenkins'
+            }
+        }
+    }
+
+}
