@@ -1,0 +1,15 @@
+---
+- hosts: web
+  become: yes
+  tasks:
+    - name: Pull Docker Image
+      command: docker pull doramar97/example-application:{{ version }}
+      
+    - name: Stop existing container
+      command: docker stop app || true
+      
+    - name: Remove existing container
+      command: docker rm app || true
+
+    - name: Run new container
+      command: docker run -d --name app -p 80:80 doramar97/example-application:{{ version }}
