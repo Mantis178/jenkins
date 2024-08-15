@@ -26,11 +26,12 @@ pipeline {
             }
         }
         stage('Push') {
+            steps {
                     sh '''
                        docker push doramar97/myapp:latest
                     '''
+         }
         }
-
         
  
 
