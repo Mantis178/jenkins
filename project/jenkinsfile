@@ -2,11 +2,22 @@ pipeline {
     agent any
 
     stages {
+
         stage('Checkout code') {
             steps {
                 git branch: 'main', url: 'https://github.com/dor-amar/jenkins'
             }
         }
+        stage('Build Docker Image') {
+            steps{
+                sh'''
+                docker build -t doramar97/myapp .
+                '''
+            }
+
+        }
+
+
     }
 
 }
