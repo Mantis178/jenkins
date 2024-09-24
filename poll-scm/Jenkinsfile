@@ -1,0 +1,28 @@
+pipeline {
+    agent { label 'aws-agent' } 
+    triggers {
+        pollSCM('H/1 * * * *')
+    }
+    environment {
+        DOCKER_IMAGE = "my-docker-image"
+    }
+    stages {
+        stage('Run Build Script') {
+            steps {
+                echo "Building ..."
+            }
+        }
+    }
+    post {
+        always {
+            echo "Build completed!"
+        }
+        success {
+            echo "The build was successful!"
+        }
+        failure {
+            echo "The build failed!"
+        }
+    }
+}
+
