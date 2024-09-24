@@ -1,0 +1,10 @@
+pipeline {
+    agent { label 'aws-agent' }
+    stages {
+        stage('Test on Agent') {
+            steps {
+                sh 'echo "Running on Jenkins Agent via Pipeline"'
+            }
+        }
+    }
+}

@@ -1,0 +1,10 @@
+---
+- hosts: web
+  become: yes
+  tasks:
+    - name: Install Docker 
+      command: sudo yum install docker 
+
+    - name: Install ansible
+      command: sudo yum install ansible 
+
