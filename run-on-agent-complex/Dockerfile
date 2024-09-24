@@ -11,4 +11,4 @@ RUN echo 'echo "Hello, World!"' > hello.sh
 RUN chmod +x hello.sh
 
 # Define the command to run the script
-CMD ["./hello.sh"]
+CMD ["ls"]
