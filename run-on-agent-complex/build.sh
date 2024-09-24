@@ -26,6 +26,7 @@ install_docker() {
 }
 
 build_and_run_docker() {
+    ls
     IMAGE_NAME="my-docker-image"
 
     sudo docker build -t $IMAGE_NAME . 
