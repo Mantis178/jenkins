@@ -1,12 +1,6 @@
 pipeline {
     agent { label 'aws-agent' }
     stages {
-        stage('Setup Environment') {
-            steps {
-                sh 'sudo yum install git -y'
-                sh 'git clone https://github.com/dor-amar/jenkins.git'
-            }
-        }
         stage('Run Build') {
             steps {
                 sh 'cd run-on-agent-complex'
