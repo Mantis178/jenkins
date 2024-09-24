@@ -11,4 +11,4 @@ FROM alpine:latest
 # RUN chmod +x hello.sh
 
 # Define the command to run the script
-CMD ["ls"]
+CMD ["sleep 600"]
