@@ -2,16 +2,16 @@ pipeline {
     agent {label 'aws-agent'}
 
     stages {
-        stage('Hello') {
+        stage('Installations') {
             steps {
-                echo 'Hello World'
-                echo 'Another command'
+                sudo yum install git
             }
         }
-        stage('Test'){
+        stage('Clone'){
             steps {
-                echo 'Second stage'
+                git clone 'https://github.com/dor-amar/jenkins.git'
             }
         }
+
     }
 }
