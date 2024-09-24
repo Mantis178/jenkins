@@ -28,7 +28,7 @@
 # build_and_run_docker() {
 #     ls
 
-    IMAGE_NAME="my-first-application"
+    IMAGE_NAME="dor-app"
 
     sudo docker build -t $IMAGE_NAME ./run-on-agent-complex
     echo "Running the Docker container..."
