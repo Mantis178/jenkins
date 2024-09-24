@@ -4,6 +4,7 @@ pipeline {
         stage('Run Build') {
             steps {
                 sh 'cd run-on-agent-complex'
+                sh 'sudo chmod +x build.sh '
                 sh './build.sh' 
             }
         }
