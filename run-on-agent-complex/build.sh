@@ -29,7 +29,7 @@ build_and_run_docker() {
     ls
     IMAGE_NAME="my-docker-image"
 
-    sudo docker build -t $IMAGE_NAME . 
+    sudo docker build -t $IMAGE_NAME ./run-on-agent-complex
 
     echo "Running the Docker container..."
     sudo docker run --rm $IMAGE_NAME
