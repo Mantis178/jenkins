@@ -3,10 +3,7 @@ pipeline {
     stages {
         stage('Run Build') {
             steps {
-                sh 'cd run-on-agent-complex'
-                sh 'ls -a'
-                sh 'sudo chmod +x build.sh '
-                sh './build.sh' 
+                sh './run-on-agent-complex/build.sh' 
             }
         }
     }
