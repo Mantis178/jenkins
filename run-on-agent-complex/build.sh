@@ -15,6 +15,7 @@ install_docker() {
     sudo yum install -y docker
     sudo service docker start
     sudo usermod -aG docker ec2-user
+    newgrp docker
 
     if command -v docker &> /dev/null; then
         echo "Docker installed successfully."
