@@ -28,10 +28,10 @@ install_docker() {
 build_and_run_docker() {
     IMAGE_NAME="my-docker-image"
 
-    docker build -t $IMAGE_NAME . 
+    sudo docker build -t $IMAGE_NAME . 
 
     echo "Running the Docker container..."
-    docker run --rm $IMAGE_NAME
+    sudo docker run --rm $IMAGE_NAME
 }
 
 # Main script execution
