@@ -1,0 +1,17 @@
+pipeline {
+    agent {label 'aws-agent'}
+
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+                echo 'Another command'
+            }
+        }
+        stage('Test'){
+            steps {
+                sh mkdir myfolder
+            }
+        }
+    }
+}
