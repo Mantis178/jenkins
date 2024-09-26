@@ -3,7 +3,7 @@ pipeline {
     environment {
         DOCKERHUB_USERNAME = 'doramar97'
         DOCKERHUB_PASSWORD = credentials('dockerhub-password')
-        DOCKERHUB_REPO = 'example-application'
+        DOCKERHUB_REPO = 'hello'
         IMAGE_TAG = "${env.BUILD_NUMBER}"
     }
     stages {
