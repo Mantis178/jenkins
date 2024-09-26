@@ -58,6 +58,16 @@ pipeline {
             }
         }
 
+        stage('Deployment'){
+           steps {
+            sh'''
+               docker run -d --rm -p 80:80 doramar97/class-april:${env.BUILD_NUMBER}
+            '''
+           }
+
+
+        }
+
 
 
 
