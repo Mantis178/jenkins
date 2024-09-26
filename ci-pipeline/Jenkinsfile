@@ -16,6 +16,7 @@ pipeline {
             steps {
                 sh '''
                    ls
+                   whoami
                    cd ci-pipeline
                    sudo docker build -t $DOCKERHUB_USERNAME/$DOCKERHUB_REPO:$IMAGE_TAG .
                 '''
