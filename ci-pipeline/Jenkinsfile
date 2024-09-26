@@ -1,27 +1,35 @@
 pipeline {
-    agent any
+
+
+    agent {label 'aws-agent'}
+
+
     environment {
         DOCKERHUB_USERNAME = 'doramar97'
-        DOCKERHUB_PASSWORD = credentials('dockerhub-password')
-        DOCKERHUB_REPO = 'hello'
+        DOCKERHUB_PASSWORD = credentials('my-docker-pass')
+        DOCKERHUB_REPO = 'class-april'
         IMAGE_TAG = "${env.BUILD_NUMBER}"
     }
+
     stages {
+
         stage('Checkout Code') {
             steps {
                 git branch: 'example', url: 'https://github.com/dor-amar/jenkins.git'
             }
         }
+
+
         stage('Build Docker Image') {
             steps {
                 sh '''
-                   ls
-                   whoami
                    cd ci-pipeline
                    sudo docker build -t $DOCKERHUB_USERNAME/$DOCKERHUB_REPO:$IMAGE_TAG .
                 '''
             }
         }
+
+
         stage('Login to Docker Hub') {
             steps {
                 sh '''
@@ -29,12 +37,43 @@ pipeline {
                 '''
             }
         }
-        stage('Tag and Push Docker Image to Docker Hub') {
+
+
+
+        stage('Push Docker Image to Docker Hub') {
             steps {
                 sh '''
                    docker push $DOCKERHUB_USERNAME/$DOCKERHUB_REPO:$IMAGE_TAG
                 '''
             }
         }
+
+
+        stage('Run Tests Before deployment') {
+            steps {
+                sh '''
+                echo "Running some tests"
+                '''
+
+            }
+        }
+
+
+
+
+
+
+
+
+        // stage('Deploy Service with Ansible') {
+        //     steps {
+        //         sh '''
+        //            ansible -i inventory/hosts -m shell -a "docker run -d --name app -p 80:80 $DOCKERHUB_USERNAME/$DOCKERHUB_REPO:$IMAGE_TAG" all
+        //         '''
+        //     }
+        // }
     }
 }
+
+
+
