@@ -1,5 +1,5 @@
 pipeline {
-    agent {label 'aws-agent'}
+    agent { label 'aws-agent' }
     environment {
         AWS_REGION = 'us-east-1'
         DOCKER_IMAGE = 'doramar97/flask-app:latest'
@@ -24,10 +24,9 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                dir('ansible-project') {  
+                dir('ansible-project') {
                     sh 'docker build -t doramar97/flask-app:latest .'
                 }
-            }
             }
         }
         stage('Push Docker Image') {
@@ -41,7 +40,6 @@ pipeline {
         stage('Provision EC2 with Terraform') {
             steps {
                 dir('terraform') {
-                    sh 'cd ansible-project'
                     sh 'terraform init'
                     sh 'terraform apply -auto-approve'
                 }
