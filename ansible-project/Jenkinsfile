@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent {label 'aws-agent'}
     environment {
         AWS_REGION = 'us-east-1'
         DOCKER_IMAGE = 'doramar97/flask-app:latest'
