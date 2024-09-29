@@ -48,6 +48,8 @@ pipeline {
         stage('Provision EC2 with Terraform') {
             steps {
                 dir('terraform') {
+                    sh 'pwd'  // To check the current directory
+                    sh 'ls -l'  // To verify the presence of main.tf
                     sh 'terraform init'
                     sh 'terraform apply -auto-approve'
                 }
