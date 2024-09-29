@@ -1,6 +1,5 @@
 pipeline {
 
-
     agent {label 'aws-agent'}
 
 
@@ -39,7 +38,6 @@ pipeline {
         }
 
 
-
         stage('Push Docker Image to Docker Hub') {
             steps {
                 sh '''
@@ -60,16 +58,12 @@ pipeline {
 
         stage('Deployment'){
            steps {
-            sh'''
+            sh '''    
+                 
                docker run -d --rm -p 80:80 doramar97/class-april:$IMAGE_TAG
             '''
            }
         }
-
-
-
-
-
 
 
 
