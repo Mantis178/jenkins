@@ -47,7 +47,7 @@ pipeline {
         }
         stage('Provision EC2 with Terraform') {
             steps {
-                dir('terraform') {
+                dir('ansible-project/terraform') {
                     sh 'pwd'  // To check the current directory
                     sh 'ls -l'  // To verify the presence of main.tf
                     sh 'terraform init'
