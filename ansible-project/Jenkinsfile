@@ -31,12 +31,18 @@ pipeline {
                 }
             }
         }
-        stage('Push Docker Image') {
+        stage('Login to Docker Hub') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'DOCKERHUB_PASSWORD', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
-                    sh 'echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin'
-                    sh 'docker push ${DOCKER_IMAGE}'
-                }
+                sh '''
+                   echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
+                '''
+            }
+        }
+        stage('Push Docker Image to Docker Hub') {
+            steps {
+                sh '''
+                   docker push $DOCKERHUB_IMAGE
+                '''
             }
         }
         stage('Provision EC2 with Terraform') {
