@@ -2,13 +2,13 @@
 FROM alpine:latest
 
 # Set up a working directory
-WORKDIR /app
+# WORKDIR /app
 
-# Create a script that outputs "Hello, World!"
-RUN echo 'echo "Hello, World!"' > hello.sh
+# # Create a script that outputs "Hello, World!"
+# RUN echo 'echo "Hello, World!"' > hello.sh
 
-# Make the script executable
-RUN chmod +x hello.sh
+# # Make the script executable
+# RUN chmod +x hello.sh
 
 # Define the command to run the script
 CMD ["ls"]

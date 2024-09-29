@@ -1,0 +1,61 @@
+pipeline {
+    agent any
+    environment {
+        AWS_REGION = 'us-east-1'
+        DOCKER_IMAGE = 'doramar97/flask-app:latest'
+    }
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git url: 'https://github.com/dor-amar/jenkins.git', branch: 'main'
+            }
+        }
+        stage('Configure AWS CLI') {
+            steps {
+                withCredentials([string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'),
+                                 string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    sh '''
+                    aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+                    aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+                    aws configure set default.region $AWS_REGION
+                    '''
+                }
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh 'docker build -t ${DOCKER_IMAGE} .'
+                }
+            }
+        }
+        stage('Push Docker Image') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'DOCKERHUB_PASSWORD', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
+                    sh 'echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin'
+                    sh 'docker push ${DOCKER_IMAGE}'
+                }
+            }
+        }
+        stage('Provision EC2 with Terraform') {
+            steps {
+                dir('terraform') {
+                    sh 'cd ansible-project'
+                    sh 'terraform init'
+                    sh 'terraform apply -auto-approve'
+                }
+            }
+        }
+        stage('Deploy Flask App with Ansible') {
+            steps {
+                script {
+                    def ec2Ip = readFile('terraform/public_ip.txt').trim()
+                    writeFile file: 'ansible/inventory.ini', text: "[web]\n${ec2Ip} ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/your_key.pem"
+                }
+                dir('ansible') {
+                    sh 'ansible-playbook -i inventory.ini ansible-playbook.yml'
+                }
+            }
+        }
+    }
+}
