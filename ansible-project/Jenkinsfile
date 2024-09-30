@@ -15,7 +15,7 @@ pipeline {
         stage('Configure AWS CLI') {
             steps {
                 withCredentials([string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'),
-                                string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'AWS_SECRET_ACCESS_KEY')]) {
+                                 string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh '''
                     aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
                     aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
@@ -43,14 +43,11 @@ pipeline {
                 sh 'docker push $DOCKER_IMAGE'
             }
         }
-
         stage('Provision EC2 with Terraform') {
             steps {
                 dir('ansible-project/terraform') {
-                    {
-                        sh 'terraform init'
-                        sh 'terraform apply -var="key_name=$KEY_PAIR_NAME" -auto-approve'
-                    }
+                    sh 'terraform init'
+                    sh 'terraform apply -var="key_name=$KEY_PAIR_NAME" -auto-approve'
                 }
             }
         }
