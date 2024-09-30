@@ -43,10 +43,11 @@ pipeline {
                 sh 'docker push $DOCKER_IMAGE'
             }
         }
+
         stage('Provision EC2 with Terraform') {
             steps {
                 dir('ansible-project/terraform') {
-                    withCredentials([string(credentialsId: 'aws-pem-key', variable: 'KEY_PAIR_NAME')]) {
+                    {
                         sh 'terraform init'
                         sh 'terraform apply -var="key_name=$KEY_PAIR_NAME" -auto-approve'
                     }
