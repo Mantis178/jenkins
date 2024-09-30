@@ -4,7 +4,7 @@ provider "aws" {
 
 resource "aws_instance" "flask_app" {
   ami           = "ami-00e73ddc3a6fc7dfe" # Example AMI for Ubuntu
-  instance_type = "t2.micro"
+  instance_type = "t3.micro"
   key_name      = var.key_name
 
   tags = {
