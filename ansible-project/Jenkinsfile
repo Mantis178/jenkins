@@ -46,8 +46,10 @@ pipeline {
         stage('Provision EC2 with Terraform') {
             steps {
                 dir('ansible-project/terraform') {
-                    sh 'terraform init'
-                    sh 'terraform apply -var="key_name=$KEY_PAIR_NAME" -auto-approve'
+                    withCredentials([sshUserPrivateKey(credentialsId: 'aws-key-pem', keyFileVariable: 'PEM_KEY_PATH')]) {
+                        sh 'terraform init'
+                        sh 'terraform apply -var="key_name=$PEM_KEY_PATH" -auto-approve'
+                    }
                 }
             }
         }
