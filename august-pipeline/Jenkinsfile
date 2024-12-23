@@ -14,7 +14,7 @@ pipeline {
                 sh'''
                 ls
                 cd august-pipeline
-                sudo docker build -t doramar97/myapp .
+                docker build -t doramar97/myapp .
                 '''
             }
         }
