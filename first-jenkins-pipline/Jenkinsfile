@@ -6,22 +6,34 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Building Docker Image'
+        // Build the docker image and push it to docker hub
       }
     }
 
     stage('Test') {
       steps {
         echo 'Testing...'
-        // Commands to test your application go here
+        // Run docker container and run tests on it
       }
     }
+
+
+     // Staging environment deployment
+
 
     stage('Deploy') {
       steps {
         echo 'Deploying...'
-        // Commands to deploy your application go here
+        // ssh -> ec2 
+        // docker run {new image}
+      }
+    }
+
+    stage('Message') {
+      steps {
+        echo 'Deployment Completed'
       }
     }
   }
-  
+
 }
