@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent worker
 
     stages {
 
@@ -35,13 +35,13 @@ pipeline {
                     '''
           }
         }
-        stage('Cleanup') {
-            steps {
-                sh '''
-                docker rmi doramar97/myapp:latest
-                '''
-            }
-        }
+        // stage('Cleanup') {
+        //     steps {
+        //         sh '''
+        //         docker rmi doramar97/myapp:latest
+        //         '''
+        //     }
+        // }
     }
 
 }
