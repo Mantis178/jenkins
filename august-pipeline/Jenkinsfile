@@ -14,8 +14,8 @@ pipeline {
                 sh'''
                 ls
                 cd august-pipeline
-                docker build -t doramar97/myapp .
-                docker images | grep doramar97
+                docker build -t nadav178/myapp .
+                docker images | grep nadav178
                 '''
             }
         }
@@ -31,7 +31,7 @@ pipeline {
         stage('Push') {
             steps {
                     sh '''
-                       docker push doramar97/myapp:latest
+                       docker push nadav178/myapp:latest
                     '''
           }
         }
