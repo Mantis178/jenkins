@@ -1,7 +1,7 @@
 pipeline {
-    agent any
+    agent { label 'worker' }
     environment {
-        DOCKERHUB_USERNAME = 'doramar97'
+        DOCKERHUB_USERNAME = 'nadav178'
         DOCKERHUB_REPO = 'example-application'
         IMAGE_TAG = "${env.BUILD_NUMBER}"
     }
